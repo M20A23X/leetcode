@@ -1,21 +1,18 @@
 /**
- * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
+ Do not return anything, modify nums1 in-place instead.
  */
-
-function middleNode(head: ListNode | null): ListNode | null {
-    let nodeRunner = head;
-    let nodeWalker = head;
-    while (nodeWalker && nodeRunner?.next) {
-        nodeWalker = nodeWalker.next;
-        nodeRunner = nodeRunner.next?.next;
+function merge(nums1: number[], m: number, nums2: number[], n: number): void {
+    const temp: number[] = [...nums1];
+    let i = 0, j = 0;
+    for (let k = 0; k < m + n; k++) {
+        nums1[k] = i < m && temp[i] <= nums2[j] ? temp[i] : (nums2[j] ?? temp[i]);
+        if (i < m) {
+            if (temp[i] <= nums2[j] || j >= n)
+                i++;
+            else
+                j++;
+        }
+        else
+            j++;
     }
-    return nodeWalker;
 };
